@@ -6,7 +6,7 @@ export interface ProductTable {
     id: Generated<number>,
     title: string,
     description: string | null,
-    thumbnail: String | null,
+    thumbnail: string | null,
     rating: number,
     price: number,
     category: string | null

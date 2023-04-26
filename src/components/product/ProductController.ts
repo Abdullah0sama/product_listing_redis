@@ -1,13 +1,14 @@
 import { Router } from "express";
 import { ProductRepository } from "./ProductRepository";
 import { ProductListingSchema } from "./ProductShema";
+import { ProductService } from "./ProductService";
 
 
 
 export class ProductController {
     
     constructor(
-        private productRepository: ProductRepository
+        private productService: ProductService
     ) {} 
 
 
@@ -17,10 +18,9 @@ export class ProductController {
         router.get('/products', async (req, res, next) => {
             try {
                 const listingOptions = await ProductListingSchema.parseAsync(req.query)
-                const products = await this.productRepository.listProducts(listingOptions)
-                res.status(200).send({
-                    data: products
-                })
+                const data = await this.productService.productListing(listingOptions)
+                res.status(200).send(data)
+                
             } catch (err: unknown) {
                 next(err)
             }
