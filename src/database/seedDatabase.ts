@@ -6,10 +6,9 @@ import * as path from 'path'
 export async function seedDB() {
 
     const data = await fs.readFile(path.join(__dirname, '../../db_seed/product_data.json'), 'utf-8')
-    const parsedData = JSON.parse(data)
+    const products: Omit<ProductTable, 'id'> = JSON.parse(data)
 
     const db = createDB()
-    const products: Omit<ProductTable, 'id'> = parsedData.products
     await db.deleteFrom('product').execute()
     await db.insertInto('product').values(products).execute()
 
