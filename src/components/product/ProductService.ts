@@ -19,7 +19,6 @@ export class ProductService {
         const keyName = stringifyObj(productListing)
         let products = await this.redisClient.json.get(keyName) as ProductType[] | null
         if(!products) {
-            console.log('not cached')
             products = await this.productRepository.listProducts(productListing)
             // this.redisClient.setEx('sdas', 142, JSON.stringify(products))
             await this.redisClient.json.set(keyName, '$',  products)

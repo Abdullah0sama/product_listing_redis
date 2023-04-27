@@ -28,3 +28,9 @@
     npm run build
     npm run start
 ```
+
+
+## Tests
+```bash
+    npm run test
+```
